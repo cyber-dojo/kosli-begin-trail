@@ -2,6 +2,10 @@ name: Begin Kosli Trail
 description: ''
 
 inputs:
+  cli_version:
+    description: "The version of the Kosli CLI to use"
+    required: true
+
   flow_description:
     description: "The description of the Flow in which the Trail is beginning"
     required: true
@@ -12,7 +16,7 @@ runs:
       - name: Setup Kosli CLI
         uses: kosli-dev/setup-cli-action@v2
         with:
-          version: ${{ vars.KOSLI_CLI_VERSION }}
+          version: ${{ inputs.cli_version }}
 
       - name: Create Kosli Flow
         shell: bash
