@@ -20,8 +20,10 @@ jobs:
       ...
 
       - name: Begin Kosli Trail
-        uses: cyber-dojo/begin-kosli-trail@main
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: cyber-dojo/kosli-begin-trail@main
         with:
+          cli_version: "${{ vars.KOSLI_CLI_VERSION }}"
           flow_description: "Diff files from two traffic-lights"
 ...
 ```
