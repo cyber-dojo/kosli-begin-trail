@@ -1,0 +1,31 @@
+name: Begin Kosli Trail
+description: ''
+
+inputs:
+  flow_description:
+    description: "The description of the Flow in which the Trail is beginning"
+    required: true
+
+runs:
+  using: "composite"
+  if: ${{ github.ref == 'refs/heads/main' }}
+  steps:
+      - name: Setup Kosli CLI
+        uses: kosli-dev/setup-cli-action@v2
+        with:
+          version: ${{ vars.KOSLI_CLI_VERSION }}
+
+      - name: Create Kosli Flow
+        run:
+          kosli create flow "${KOSLI_FLOW}"
+            --description="${{ inputs.flow_description }}"
+
+      - name: Begin Kosli Trail
+        run:
+          kosli begin trail "${KOSLI_TRAIL}"
+            --template-file=.kosli.yml
+
+      - name: Write Trail URL to GitHub Step Summary
+        run: |
+          url="https://app.kosli.com/${KOSLI_ORG}/flows/${KOSLI_FLOW}/trails/${KOSLI_TRAIL}"
+          echo "[Kosli Trail](${url})" > "${GITHUB_STEP_SUMMARY}"
