@@ -1,5 +1,5 @@
 
-A "partner" composite workflow to begin a kosli trail at the start of a workflow.
+A composite workflow to begin a kosli trail at the start of a workflow.  
 Requires a `.kosli.yml` template file and the following environment-variables:
 - KOSLI_ORG
 - KOSLI_FLOW
