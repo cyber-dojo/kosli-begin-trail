@@ -15,16 +15,19 @@ runs:
           version: ${{ vars.KOSLI_CLI_VERSION }}
 
       - name: Create Kosli Flow
+        shell: bash
         run:
           kosli create flow "${KOSLI_FLOW}"
             --description="${{ inputs.flow_description }}"
 
       - name: Begin Kosli Trail
+        shell: bash
         run:
           kosli begin trail "${KOSLI_TRAIL}"
             --template-file=.kosli.yml
 
       - name: Write Trail URL to GitHub Step Summary
+        shell: bash
         run: |
           url="https://app.kosli.com/${KOSLI_ORG}/flows/${KOSLI_FLOW}/trails/${KOSLI_TRAIL}"
           echo "[Kosli Trail](${url})" > "${GITHUB_STEP_SUMMARY}"
