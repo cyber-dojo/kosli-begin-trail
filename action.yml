@@ -23,12 +23,12 @@ runs:
         run:
           kosli create flow "${KOSLI_FLOW}"
             --description="${{ inputs.flow_description }}"
+            --template-file=.kosli.yml
 
       - name: Begin Kosli Trail
         shell: bash
         run:
           kosli begin trail "${KOSLI_TRAIL}"
-            --template-file=.kosli.yml
 
       - name: Write Trail URL to GitHub Step Summary
         shell: bash
