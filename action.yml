@@ -10,6 +10,11 @@ inputs:
     description: "The description of the Flow in which the Trail is beginning"
     required: true
 
+  template_filename:
+    description: "The name of the Kosli template file"
+    required: false
+    default: ".kosli.yml"
+
 runs:
   using: "composite"
   steps:
@@ -23,7 +28,7 @@ runs:
       run:
         kosli create flow "${KOSLI_FLOW}"
           --description="${{ inputs.flow_description }}"
-          --template-file=.kosli.yml
+          --template-file"${{ inputs.template_filename }}"
 
     - name: Begin Kosli Trail
       shell: bash
