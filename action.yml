@@ -28,7 +28,7 @@ runs:
       run:
         kosli create flow "${KOSLI_FLOW}"
           --description="${{ inputs.flow_description }}"
-          --template-file"${{ inputs.template_filename }}"
+          --template-file="${{ inputs.template_filename }}"
 
     - name: Begin Kosli Trail
       shell: bash
