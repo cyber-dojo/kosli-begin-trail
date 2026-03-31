@@ -19,7 +19,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Kosli CLI
-      uses: kosli-dev/setup-cli-action@v2
+      uses: kosli-dev/setup-cli-action@v3
       with:
         version: ${{ inputs.cli_version }}
 
