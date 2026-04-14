@@ -39,4 +39,4 @@ runs:
       shell: bash
       run: |
         url="https://app.kosli.com/${KOSLI_ORG}/flows/${KOSLI_FLOW}/trails/${KOSLI_TRAIL}"
-        echo "[Kosli Trail for ${${{ github.event.repository.name }}}](${url})" > "${GITHUB_STEP_SUMMARY}"
+        echo "[Kosli Trail for ${{ github.event.repository.name }}](${url})" > "${GITHUB_STEP_SUMMARY}"
