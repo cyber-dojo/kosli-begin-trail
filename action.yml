@@ -23,14 +23,15 @@ inputs:
 
 runs:
   using: "composite"
-  if: ${{ github.ref == 'refs/heads/main' }}
   steps:
     - name: Setup Kosli CLI
+      if: ${{ github.ref == 'refs/heads/main' }}
       uses: kosli-dev/setup-cli-action@v5
       with:
         version: ${{ inputs.cli_version }}
 
     - name: Create Kosli Flow
+      if: ${{ github.ref == 'refs/heads/main' }}
       shell: bash
       run:
         kosli create flow "${KOSLI_FLOW}"
@@ -38,11 +39,13 @@ runs:
           --template-file="${{ inputs.template_filename }}"
 
     - name: Begin Kosli Trail
+      if: ${{ github.ref == 'refs/heads/main' }}
       shell: bash
       run:
         kosli begin trail "${KOSLI_TRAIL}"
 
     - name: Write Trail URL to GitHub Step Summary
+      if: ${{ github.ref == 'refs/heads/main' }}
       shell: bash
       run: |
         url="https://app.kosli.com/${KOSLI_ORG}/flows/${KOSLI_FLOW}/trails/${KOSLI_TRAIL}"
