@@ -1,10 +1,16 @@
 name: Begin Kosli Trail
 description: ''
 
+# Relies on three env-vars set in callers context
+# KOSLI_ORG
+# KOSLI_FLOW
+# KOSLI_TRAIL
+
 inputs:
   cli_version:
     description: "The version of the Kosli CLI to use"
-    required: true
+    required: false
+    default: latest
 
   flow_description:
     description: "The description of the Flow in which the Trail is beginning"
@@ -17,6 +23,7 @@ inputs:
 
 runs:
   using: "composite"
+  if: ${{ github.ref == 'refs/heads/main' }}
   steps:
     - name: Setup Kosli CLI
       uses: kosli-dev/setup-cli-action@v5
