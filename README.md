@@ -25,5 +25,11 @@ jobs:
         with:
           cli_version: "${{ vars.KOSLI_CLI_VERSION }}"
           flow_description: "Diff files from two traffic-lights"
+          flow_tags: |
+            env=aws-beta
 ...
 ```
+
+`flow_tags` is optional: one `key=value` per line, each applied to the Flow with
+`kosli tag flow --set`. Tagging a build Flow with its target environment
+(e.g. `env=aws-beta`) lets environment policies scope by `flow.tags.env`.

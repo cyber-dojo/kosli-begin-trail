@@ -21,6 +21,11 @@ inputs:
     required: false
     default: ".kosli.yml"
 
+  flow_tags:
+    description: "Optional flow tags to apply, one key=value per line (applied with 'kosli tag flow --set')"
+    required: false
+    default: ""
+
 runs:
   using: "composite"
   steps:
@@ -37,6 +42,23 @@ runs:
         kosli create flow "${KOSLI_FLOW}"
           --description="${{ inputs.flow_description }}"
           --template-file="${{ inputs.template_filename }}"
+
+    - name: Tag Kosli Flow
+      if: ${{ github.ref == 'refs/heads/main' && inputs.flow_tags != '' }}
+      shell: bash
+      env:
+        FLOW_TAGS: ${{ inputs.flow_tags }}
+      run: |
+        # One key=value per line -> a --set flag each. Passed via env (not
+        # inline) to avoid injection; blank lines (e.g. a trailing newline)
+        # are skipped.
+        set_flags=()
+        while IFS= read -r tag; do
+          [ -n "${tag}" ] && set_flags+=(--set "${tag}")
+        done <<< "${FLOW_TAGS}"
+        if [ "${#set_flags[@]}" -gt 0 ]; then
+          kosli tag flow "${KOSLI_FLOW}" "${set_flags[@]}"
+        fi
 
     - name: Begin Kosli Trail
       if: ${{ github.ref == 'refs/heads/main' }}
